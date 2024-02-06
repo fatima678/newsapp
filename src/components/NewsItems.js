@@ -2,9 +2,17 @@ import React, { Component } from 'react'
 
 export class NewsItems extends Component {
   render() {
+    let {title, description} = this.props;
     return (
       <div>
-        This is news Item components
+        <div  className="card" style={{width: "18rem"}}>
+        <img src= "https://m.files.bbci.co.uk/modules/bbc-morph-news-waf-page-meta/5.3.0/bbc_news_logo.png"  className="card-img-top" alt="..."/>
+        <div  className="card-body">
+            <h5  className="card-title">{title}</h5>
+            <p  className="card-text">{description}</p>
+            <a href="/"  className="btn btn-primary">Go somewhere</a>
+        </div>
+        </div>
       </div>
     )
   }
