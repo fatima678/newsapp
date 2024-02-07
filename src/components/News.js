@@ -148,17 +148,18 @@ export class News extends Component {
     return (
       <div className='container my-3'>
         <h2>NewsApp - Top Headlines</h2>
-        <div className='row'>
-            <div className='col-md-4'>
-                <NewsItems title="myTiltle" description="myDescription" imageUrl="https://m.files.bbci.co.uk/modules/bbc-morph-news-waf-page-meta/5.3.0/bbc_news_logo.png"
-                newsurl='todo'/>
+          <div className='row'>
+             {/* iterate articles , map is an array method,  jb b map use krty hn tu elements ko unique key deni prti ha */}
+             {this.state.articles.map((element)=>{        
+              return <div className='col-md-4' key={element.url}> 
+              <NewsItems  title={element.title} description={element.description} imageUrl={element.urlToImage} 
+                newsUrl={element.url}/>
             </div>
-            <div className='col-md-4'>
-                <NewsItems title="myTiltle" description="myDescription"/>
-            </div>
-            <div className='col-md-4'>
-                <NewsItems title="myTiltle" description="myDescription"/>
-            </div>
+
+             })
+         }
+            
+             
         </div>
     
       </div>
