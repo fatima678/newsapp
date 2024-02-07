@@ -81,58 +81,9 @@ export class News extends Component {
       "publishedAt": "2024-02-06T16:22:19.1943145Z",
       "content": "US Special Counsel Jack Smith has charged Donald Trump with conspiring to overturn Joe Biden's victory in the 2020 election and committing fraud to stay in office.\r\nThe trial in that case was initial… [+986 chars]"
       },
-      {
-      "source": {
-      "id": "bbc-news",
-      "name": "BBC News"
-      },
-      "author": "BBC News",
-      "title": "Police to pay $1.9m to black family held at gunpoint in Colorado",
-      "description": "The 2020 arrest in Colorado was recorded by bystanders, which showed children handcuffed and crying.",
-      "url": "https://www.bbc.co.uk/news/world-us-canada-68211285",
-      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/53F2/production/_113809412_gettyimages-148988270.jpg",
-      "publishedAt": "2024-02-06T15:37:15.9595904Z",
-      "content": "A black mother and four children, who were held at gunpoint by police in Colorado, have been awarded $1.9m (£1.5m) in a settlement.\r\nBrittney Gilliam was wrongfully stopped in 2020 at a parking lot, … [+1970 chars]"
-      },
-      {
-      "source": {
-      "id": "bbc-news",
-      "name": "BBC News"
-      },
-      "author": "BBC News",
-      "title": "King Charles latest news: King Charles' cancer 'caught early' says Sunak, after treatment begins",
-      "description": "The King began a \"schedule of regular treatments\" on Monday and is staying at home in London, rather than hospital.",
-      "url": "https://www.bbc.co.uk/news/live/uk-68213599",
-      "urlToImage": "https://m.files.bbci.co.uk/modules/bbc-morph-news-waf-page-meta/5.3.0/bbc_news_logo.png",
-      "publishedAt": "2024-02-06T12:37:19.0077116Z",
-      "content": "The King, pictured last monthImage caption: The King, pictured last month\r\nAfter bombshell royal announcements such as yesterdays news\r\nabout the Kings cancer diagnosis, theres a huge public demand f… [+926 chars]"
-      },
-      {
-      "source": {
-      "id": "bbc-news",
-      "name": "BBC News"
-      },
-      "author": "BBC News",
-      "title": "Country music legend Toby Keith dies aged 62",
-      "description": "Toby Keith, one of country music's biggest stars, dies aged 62 - he had previously revealed he had stomach cancer",
-      "url": "https://www.bbc.co.uk/news/world-us-canada-68215639",
-      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/83B3/production/_115651733_breaking-large-promo-nc.png",
-      "publishedAt": "2024-02-06T10:07:19.2882867Z",
-      "content": "Country music star Toby Keith has died at the age of 62, according to a statement published on his website. \r\nHe previously said he had been diagnosed with stomach cancer, a fight he called \"debilita… [+520 chars]"
-      },
-      {
-      "source": {
-      "id": "bbc-news",
-      "name": "BBC News"
-      },
-      "author": "BBC News",
-      "title": "Ukraine-born Miss Japan winner relinquishes crown following affair",
-      "description": "The controversial Ukraine-born model has resigned after a report on her relations with a married man.",
-      "url": "https://www.bbc.co.uk/news/world-asia-68213223",
-      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/A1CD/production/_132412414_a7304735.jpg",
-      "publishedAt": "2024-02-06T03:37:18.2536523Z",
-      "content": "The Ukraine-born winner of the Miss Japan beauty pageant has given up her crown after a tabloid report revealed her affair with a married man.\r\nKarolina Shiino, 26, was crowned Miss Japan two weeks a… [+1691 chars]"
-      }
+      
+      
+      
       
   ]
   constructor(){
@@ -152,8 +103,9 @@ export class News extends Component {
              {/* iterate articles , map is an array method,  jb b map use krty hn tu elements ko unique key deni prti ha */}
              {this.state.articles.map((element)=>{        
               return <div className='col-md-4' key={element.url}> 
-              <NewsItems  title={element.title} description={element.description} imageUrl={element.urlToImage} 
-                newsUrl={element.url}/>
+              <NewsItems  title={element.title.slice(0,45)} description={element.description.slice(0,88)} imageUrl={element.urlToImage} 
+                url={element.url}/>
+                {/* we use slice method to limit the character in title and in description */}
             </div>
 
              })
