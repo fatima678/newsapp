@@ -8,7 +8,8 @@ export class News extends Component {
     console.log("i am a constructor fron News component");
     this.state={
       articles:[],
-      loading:false
+      loading:false,
+      page:1
     }
   }
 // it is a lifecycle method, it will run after render method
@@ -17,11 +18,44 @@ export class News extends Component {
 // When resolved, data will contain the response from the server.
   async componentDidMount(){
   
-    let url= "https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc"
+    let url= "https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=1pageSize=20";
     let data= await fetch(url);
     let parsedData= await data.json()
     console.log(parsedData);
-    this.setState({articles: parsedData.articles})
+    this.setState({articles: parsedData.articles,totalResuts:parsedData.totalResuts})
+  }
+    handlePrevClick= async ()=>{
+    console.log("previous");  
+    let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page - 1}&pageSize=20`;
+    let data= await fetch(url);
+    let parsedData= await data.json()
+    console.log(parsedData);
+    this.setState({
+      page: this.state.page - 1,
+      articles:parsedData.articles
+    })
+    
+
+  }
+    handleNextClick= async ()=>{
+    console.log("Next");
+    // Math.ceil return the next intergr like 4.7 it return 5
+    if(this.state.page +1 > Math.ceil(this.state.totalResuts/20)){
+
+    }
+    else{
+      let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page + 1}&pageSize=20`;
+      let data= await fetch(url);
+      let parsedData= await data.json()
+      console.log(parsedData);
+      this.setState({
+        page: this.state.page + 1,
+        articles:parsedData.articles
+      })
+
+    }
+   
+
   }
   
   render() {
@@ -41,8 +75,8 @@ export class News extends Component {
          }     
         </div>
         <div className='container d-flex justify-content-between'>
-        <button type="button" class="btn btn-outline-dark"> &larr; Previous</button>
-        <button type="button" class="btn btn-outline-dark">Next &rarr;</button>
+        <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevClick}> &larr; Previous</button>
+        <button type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
         </div>
       </div>
     )
