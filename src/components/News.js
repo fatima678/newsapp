@@ -18,7 +18,7 @@ export class News extends Component {
 // When resolved, data will contain the response from the server.
   async componentDidMount(){
   
-    let url= "https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=1pageSize=20";
+    let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=1&pageSize=${this.props.pageSize}`;
     let data= await fetch(url);
     let parsedData= await data.json()
     console.log(parsedData);
@@ -26,7 +26,7 @@ export class News extends Component {
   }
     handlePrevClick= async ()=>{
     console.log("previous");  
-    let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page - 1}&pageSize=20`;
+    let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
     let data= await fetch(url);
     let parsedData= await data.json()
     console.log(parsedData);
@@ -44,7 +44,7 @@ export class News extends Component {
 
     }
     else{
-      let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page + 1}&pageSize=20`;
+      let url= `https://newsapi.org/v2/top-headlines?country=us&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
       let data= await fetch(url);
       let parsedData= await data.json()
       console.log(parsedData);
@@ -61,7 +61,7 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3'>
-        <h2>NewsApp - Top Headlines</h2>
+      <h2 className='text-center'>NewsApp - Top Headlines</h2>
           <div className='row'>
              {/* iterate articles , map is an array method,  jb b map use krty hn tu elements ko unique key deni prti ha */}
              {this.state.articles.map((element)=>{        
@@ -76,7 +76,7 @@ export class News extends Component {
         </div>
         <div className='container d-flex justify-content-between'>
         <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevClick}> &larr; Previous</button>
-        <button type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+        <button  disabled={this.state.page +1 > Math.ceil(this.state.totalResuts/this.props.pageSize)}type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
         </div>
       </div>
     )
