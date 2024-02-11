@@ -28,46 +28,25 @@ export class News extends Component {
 // This line uses the fetch() function to make an HTTP GET request to the specified URL.
 // The await keyword is used to wait for the promise returned by fetch() to resolve. 
 // When resolved, data will contain the response from the server.
+async UpdateNews(){
+  const url= `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+  let data= await fetch(url);
+  let parsedData= await data.json()
+  console.log(parsedData);
+  this.setState({articles: parsedData.articles,totalResuts:parsedData.totalResuts,loadinga:false})
+
+}
   async componentDidMount(){
-  
-    let url= `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=1&pageSize=${this.props.pageSize}`;
-    let data= await fetch(url);
-    let parsedData= await data.json()
-    console.log(parsedData);
-    this.setState({articles: parsedData.articles,totalResuts:parsedData.totalResuts})
+    this.UpdateNews();
   }
     handlePrevClick= async ()=>{
-    console.log("previous");  
-    let url= `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-    let data= await fetch(url);
-    let parsedData= await data.json()
-    console.log(parsedData);
-    this.setState({
-      page: this.state.page - 1,
-      articles:parsedData.articles
-    }) 
-    
+    this.setState({page: this.state.page - 1})
+    this.UpdateNews();
 
   }
     handleNextClick= async ()=>{
-    console.log("Next");
-    // Math.ceil return the next intergr like 4.7 it return 5
-    if(this.state.page +1 > Math.ceil(this.state.totalResuts/20)){
-
-    }
-    else{
-      let url= `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b22077b39bad439abf1ce3758fa4d1fc&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-      let data= await fetch(url);
-      let parsedData= await data.json()
-      console.log(parsedData);
-      this.setState({
-        page: this.state.page + 1,
-        articles:parsedData.articles
-      })
-
-    }
-   
-
+    this.setState({page: this.state.page+ 1})
+    this.UpdateNews();
   }
   
   render() {
