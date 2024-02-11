@@ -80,7 +80,7 @@ export class News extends Component {
              {this.state.articles.map((element)=>{        
               return <div className='col-md-4' key={element.url}> 
               <NewsItems  title={element.title?element.title.slice(0,45):""} description={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} 
-                url={element.url}/>
+                url={element.url} author={element.author} date={element.publishedAt}/>
                 {/* we use slice method to limit the character in title and in description */}
             </div>
 
